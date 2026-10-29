@@ -56,6 +56,17 @@ for f in a["files"]:
   done <<< "$FILES"
 done
 
+# Unzip the sensor time series (Athena can't read inside a .zip).
+# ~28 MB zipped, ~330 MB unzipped: fits in CloudShell's ~1 GB home folder.
+echo "== Unzipping sensor time series"
+WORK="$(mktemp -d)"
+aws s3 cp "s3://$BUCKET/$PREFIX/16676320/Process.zip" "$WORK/Process.zip" --only-show-errors
+unzip -q "$WORK/Process.zip" -d "$WORK/unzipped"
+# The zip holds one folder, Process/, with one semicolon-separated CSV per product code.
+aws s3 cp "$WORK/unzipped/Process/" "s3://$BUCKET/$PREFIX/timeseries_csv/" --recursive --only-show-errors
+rm -rf "$WORK"   # free CloudShell disk; the data now lives in S3
+echo "   OK: $(aws s3 ls "s3://$BUCKET/$PREFIX/timeseries_csv/" | wc -l) time-series files in S3"
+
 # Save a manifest: what was downloaded, from where, how big, and its checksum.
 aws s3 cp "$MANIFEST" "s3://$BUCKET/$PREFIX/manifest.tsv" --only-show-errors
 echo
