@@ -1,0 +1,36 @@
+# Data — never commit; scripts download it
+data/
+*.csv
+*.parquet
+*.zip
+
+# Secrets and credentials
+.env
+.env.*
+*.pem
+credentials
+.aws/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Model artifacts and local outputs
+*.tar.gz
+*.joblib
+*.pkl
+mlruns/
+outputs/
+
+# AgentCore / CDK local files
+cdk.out/
+.agentcore/.cli/
+agentcore/.env.local
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
