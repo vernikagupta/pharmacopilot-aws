@@ -44,6 +44,38 @@ curl -s https://api.figshare.com/v2/collections/5645578/articles \
   | python3 -c "import json,sys; [print(a['id'], a['title']) for a in json.load(sys.stdin)]"
 ```
 
+## Linux basics (know by heart)
+
+```bash
+ls -lh                 # list files with readable sizes
+cd folder / cd ~       # go into a folder / go to home folder
+mkdir -p folder        # make a folder (no error if it exists)
+head -3 file.csv       # first 3 lines: check columns before using a file
+du -sh folder          # total size of a folder
+rm -rf folder          # delete a folder and everything in it. NO UNDO
+cmd1 | cmd2            # pipe: send cmd1's output into cmd2
+cmd | wc -l            # count lines of output
+export NAME=value      # set a variable for this terminal session
+```
+
+## Git
+
+```bash
+git clone https://github.com/vernikagupta/pharmacopilot-aws.git   # copy the repo here
+git pull                                                           # get the latest changes
+```
+
+## Day 2: land the data
+
+```bash
+export BUCKET=pharmacopilot-<account-id>-us-east-1   # never put the account ID in code
+bash scripts/download_data.sh                         # figshare -> S3, size-checked, unzipped
+
+aws s3 cp src s3://bucket/path/ --recursive           # upload a whole folder
+aws s3 ls s3://bucket/path/ | wc -l                   # count files in an S3 folder
+aws s3 ls s3://bucket/path/ --recursive --human-readable   # list with sizes
+```
+
 ## HTTP status codes
 
 | Code | Meaning |
