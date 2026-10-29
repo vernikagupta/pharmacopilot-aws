@@ -24,7 +24,7 @@ All batches in the dataset passed spec, so Stage 1 is an early-warning system on
 | Phase | Status |
 |---|---|
 | Phase 0 — sandbox recon | ✅ Done ([notes](docs/day01-recon.md)) |
-| Phase 0 — land data | Next |
+| Phase 0 — land data | Raw data in S3 ✅; Athena tables next |
 | Stage 1 — batch-risk model | Not started |
 | Stage 2 — GMP copilot | Not started |
 | Stage 3 — investigation agent | Not started |
